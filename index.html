@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>UniSwap</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="top-bar">
+        <nav class=" top-bar-nav navbar navbar-expand-lg navbar">
+            <div class="logo">
+                <a class="navbar-brand" href="#"><img src="https://cryptologos.cc/logos/uniswap-uni-logo.png"
+                        alt=""></a>
+            </div>
+            <div class="center">
+                <ul class="nav nav-pills mb-4" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="pills-swap-tab" data-toggle="pill" href="#pills-swap" role="tab"
+                            aria-controls="pills-swap" aria-selected="true">Swap</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-pool-tab" data-toggle="pill" href="#" role="tab" aria-selected="false">Pool</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-vote-tab" data-toggle="pill" href="#" role="tab" aria-selected="false">Vote</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-chart-tab" data-toggle="pill" href="#" role="tab" aria-selected="false">Chart</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="right">
+                <button class=" navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="eth-button dropdown show">
+                    <a class="ethereum-coin btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span><img src="./img/eth.png"
+                                alt=""></span>
+                        Ethereum
+                    </a>
+                </div>
+                <div class="top-connect">
+                    <button type="button" class="btn-wallet">Connect Wallet</button>
+                </div>
+                <div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="ethereum-coin1 dropdown show">
+                        <a class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false"><span>...</span>
+
+                        </a>
+                    </div>
+                </div>
+        </nav>
+        <div class="main-boby">
+
+            <div class="tab-content " id="pills-tabContent">
+                <div class="swap-container tab-pane fade show active" id="pills-swap" role="tabpanel"
+                    aria-labelledby="pills-swap-tab">
+
+                    <div class="swap-contents">
+                        <div class="card swap-contents-card">
+                            <div class="swap-head card-header">
+                                Swap
+                            </div>
+                            <div class="card-body">
+                                <div class="card-input input-group">
+                                    <div class="input-card-top input-eth">
+                                        <input type="text" value="" placeholder="0.0" class="form-control"
+                                            aria-label="Text input with dropdown button">
+                                        <div class="dropdown">
+                                            <button class="btn dropdown-toggle" type="button" data-toggle="modal"
+                                                data-target="#modal-eth" aria-haspopup="true" aria-expanded="false">
+                                                <img class="input-img" src="./img/eth.png" alt=""> Eth
+                                            </button>
+
+                                            <div class="modal fade" id="modal-eth" tabindex="-1" role="dialog"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="eth-search-modal modal-dialog" role="document">
+                                                    <div class="eth-search-modal modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Select a
+                                                                token</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="modal-search">
+                                                                <input type="text" placeholder="Search name">
+                                                            </div>
+                                                            <hr class="line-divider">
+                                                            <div class="all-coin">
+                                                                <ul>
+                                                                    <li> <img src="./img/eth.png" alt=""> ETH</li>
+                                                                    <li><img src="./img/eth.png" alt="">SOL</li>
+                                                                    <li><img src="./img/eth.png" alt="">DAI</li>
+                                                                    <li><img src="./img/eth.png" alt="">USDT</li>
+                                                                    <li><img src="./img/eth.png" alt="">BTC</li>
+                                                                    <li><img src="./img/eth.png" alt="">WBTC</li>
+                                                                    <li><img src="./img/eth.png" alt="">CAD</li>
+                                                                    <li><img src="./img/eth.png" alt="">XPR</li>
+
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                 
+                                    <div class="card-arrow"><img src="./img/arrow.png" alt=""></div>
+                                    <div class="input-card-top">
+                                        <input type="text" value="" placeholder="0.0" class="form-control"
+                                            aria-label="Text input with dropdown button">
+                                        <div class="dropdown">
+                                            <button class="btn btn-primary dropdown-toggle" type="button"
+                                                data-toggle="modal" data-target="#exampleModal" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                select a token
+                                            </button>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="eth-search-modal modal-dialog" role="document">
+                                                    <div class="eth-search-modal modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Select a
+                                                                token</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="modal-search">
+                                                                <input type="text" placeholder="Search">
+                                                            </div>
+                                                            <hr class="line-divider">
+                                                            <div class="all-coin">
+                                                                <ul>
+                                                                    <li> <img src="./img/eth.png" alt=""> ETH</li>
+                                                                    <li><img src="./img/eth.png" alt="">SOL</li>
+                                                                    <li><img src="./img/eth.png" alt="">DAI</li>
+                                                                    <li><img src="./img/eth.png" alt="">USDT</li>
+                                                                    <li><img src="./img/eth.png" alt="">BTC</li>
+                                                                    <li><img src="./img/eth.png" alt="">WBTC</li>
+                                                                    <li><img src="./img/eth.png" alt="">CAD</li>
+                                                                    <li><img src="./img/eth.png" alt="">XPR</li>
+                                                                    <li> <img src="./img/eth.png" alt=""> ETH</li>
+                                                                    <li><img src="./img/eth.png" alt="">SOL</li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" class="connect-wallet-down">
+                                    Connect Wallet
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
