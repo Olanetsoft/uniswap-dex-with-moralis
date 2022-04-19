@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>UniSwap</title>
+    <title>UniSwap DEX with Moralis</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -57,7 +57,7 @@
                     </a>
                 </div>
                 <div class="top-connect">
-                    <button type="button" class="btn-wallet">Connect Wallet</button>
+                    <button type="button" class="btn-wallet" id="top-connect-wallet-button">Connect Wallet</button>
                 </div>
                 <div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -88,14 +88,17 @@
                                 <div class="card-input input-group">
                                     <div class="input-card-top input-eth">
                                         <input type="text" value="" placeholder="0.0" class="form-control"
-                                            aria-label="Text input with dropdown button">
+                                            aria-label="Text input with dropdown button" id="from-amount">
                                         <div class="dropdown">
                                             <button class="btn dropdown-toggle" type="button" data-toggle="modal"
-                                                data-target="#modal-eth" aria-haspopup="true" aria-expanded="false">
-                                                <img class="input-img" src="./img/eth.png" alt=""> Eth
+                                                data-target="#modal-token" aria-haspopup="true" aria-expanded="false" id="from-token-selected">
+                                                <img class="token-image" src="./img/eth.png" alt="" id="token-default-img">
+                                                <img class="token-image" id="from-token-img">
+                                                <span id="from-token-text"></span>
+
                                             </button>
 
-                                            <div class="modal fade" id="modal-eth" tabindex="-1" role="dialog"
+                                            <div class="modal fade" id="modal-token" tabindex="-1" role="dialog"
                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="eth-search-modal modal-dialog" role="document">
                                                     <div class="eth-search-modal modal-content">
@@ -109,21 +112,10 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="modal-search">
-                                                                <input type="text" placeholder="Search name">
+                                                                <input type="text" id="search-input" placeholder="Search name" onkeyup="filterFunction()">
                                                             </div>
                                                             <hr class="line-divider">
-                                                            <div class="all-coin">
-                                                                <ul>
-                                                                    <li> <img src="./img/eth.png" alt=""> ETH</li>
-                                                                    <li><img src="./img/eth.png" alt="">SOL</li>
-                                                                    <li><img src="./img/eth.png" alt="">DAI</li>
-                                                                    <li><img src="./img/eth.png" alt="">USDT</li>
-                                                                    <li><img src="./img/eth.png" alt="">BTC</li>
-                                                                    <li><img src="./img/eth.png" alt="">WBTC</li>
-                                                                    <li><img src="./img/eth.png" alt="">CAD</li>
-                                                                    <li><img src="./img/eth.png" alt="">XPR</li>
-
-                                                                </ul>
+                                                            <div class="all-coin" id="all-coin-list">
                                                             </div>
                                                         </div>
 
@@ -136,55 +128,20 @@
                                     <div class="card-arrow"><img src="./img/arrow.png" alt=""></div>
                                     <div class="input-card-top">
                                         <input type="text" value="" placeholder="0.0" class="form-control"
-                                            aria-label="Text input with dropdown button">
+                                            aria-label="Text input with dropdown button" id="to-amount">
                                         <div class="dropdown">
                                             <button class="btn btn-primary dropdown-toggle" type="button"
-                                                data-toggle="modal" data-target="#exampleModal" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                select a token
+                                                data-toggle="modal" data-target="#modal-token" aria-haspopup="true"
+                                                aria-expanded="false" id="to-token-selected">
+                                                <span id="select-token-text">select a token</span>
+                                                <img class="token-image" id="to-token-img">
+                                                <span id="to-token-text"></span>
                                             </button>
-
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="eth-search-modal modal-dialog" role="document">
-                                                    <div class="eth-search-modal modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Select a
-                                                                token</h5>
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div class="modal-search">
-                                                                <input type="text" placeholder="Search">
-                                                            </div>
-                                                            <hr class="line-divider">
-                                                            <div class="all-coin">
-                                                                <ul>
-                                                                    <li> <img src="./img/eth.png" alt=""> ETH</li>
-                                                                    <li><img src="./img/eth.png" alt="">SOL</li>
-                                                                    <li><img src="./img/eth.png" alt="">DAI</li>
-                                                                    <li><img src="./img/eth.png" alt="">USDT</li>
-                                                                    <li><img src="./img/eth.png" alt="">BTC</li>
-                                                                    <li><img src="./img/eth.png" alt="">WBTC</li>
-                                                                    <li><img src="./img/eth.png" alt="">CAD</li>
-                                                                    <li><img src="./img/eth.png" alt="">XPR</li>
-                                                                    <li> <img src="./img/eth.png" alt=""> ETH</li>
-                                                                    <li><img src="./img/eth.png" alt="">SOL</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
+                                    <div>Estimated Gas: <span id="gas-estimate"></span></div>
                                 </div>
-                                <button type="button" class="connect-wallet-down">
+                                <button type="button" class="connect-wallet-down" id="main-connect-wallet-button">
                                     Connect Wallet
                                 </button>
                             </div>
@@ -209,6 +166,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/moralis/dist/moralis.js"></script>
+        <script src="./script.js"></script>
 </body>
 
 </html>
