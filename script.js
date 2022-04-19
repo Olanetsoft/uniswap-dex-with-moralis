@@ -23,9 +23,6 @@ async function initialize() {
 
   // Load Tokens
   await listAvailableTokens();
-
-  // Enable Moralis web3 instance to enable swap functionality
-  await Moralis.enableWeb3();
 }
 
 // Login
@@ -198,7 +195,10 @@ async function validateSwap() {
 }
 
 // Swap functionality
-function Swap(userAddress, amount) {
+async function Swap(userAddress, amount) {
+  // Enable Moralis web3 instance to enable swap functionality
+  await Moralis.enableWeb3();
+
   // Swap token
   return Moralis.Plugins.oneInch.swap({
     chain: "eth", // The blockchain you want to use (eth/bsc/polygon)
