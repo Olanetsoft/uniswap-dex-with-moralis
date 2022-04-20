@@ -1,9 +1,10 @@
-const serverUrl = "https://komfdqkyimlg.usemoralis.com:2053/server"; //Server url from moralis.io
-const appId = "ihKsbeiz3fSYaiVZKyjvSUGP7IdLDVSDMcRDsbcU"; // Application id from moralis.io
+const serverUrl = "https://hbc5m1pibhdo.usemoralis.com:2053/server"; //Server url from moralis.io
+const appId = "fW0wg44rey4RBD4dkMhGlde8bwbjS0sy5K790VKc"; // Application id from moralis.io
 
+// Global variables
 let currentUser;
-let currentTrade = {};
-let currentSelectSide;
+let trade = {};
+let selection;
 let tokens;
 
 // App initialization
@@ -22,7 +23,7 @@ async function initialize() {
   }
 
   // Load Tokens
-  await listAvailableTokens();
+  await availableTokens();
 }
 
 // Login
@@ -44,7 +45,7 @@ async function login() {
 }
 
 // List all available tokens
-async function listAvailableTokens() {
+async function availableTokens() {
   // Get all tokens
   const result = await Moralis.Plugins.oneInch.getSupportedTokens({
     chain: "eth", // The blockchain you want to use (eth/bsc/polygon)
@@ -98,7 +99,7 @@ function filterFunction() {
 // Select token functionality
 function selectToken(address) {
   // Get token
-  currentTrade[currentSelectSide] = tokens[address];
+  trade[selection] = tokens[address];
 
   // Render selected token on the interface
   renderInterface();
@@ -110,17 +111,16 @@ function selectToken(address) {
 // Render selected token on the interface
 function renderInterface() {
   // Render selected token on the interface
-  if (currentTrade.from) {
-    document.getElementById("from-token-img").src = currentTrade.from.logoURI;
-    document.getElementById("from-token-text").innerHTML =
-      currentTrade.from.symbol;
+  if (trade.from) {
+    document.getElementById("from-token-img").src = trade.from.logoURI;
+    document.getElementById("from-token-text").innerHTML = trade.from.symbol;
     document.getElementById("token-default-img").style.display = "none";
   }
 
   // Render selected token on the interface
-  if (currentTrade.to) {
-    document.getElementById("to-token-img").src = currentTrade.to.logoURI;
-    document.getElementById("to-token-text").innerHTML = currentTrade.to.symbol;
+  if (trade.to) {
+    document.getElementById("to-token-img").src = trade.to.logoURI;
+    document.getElementById("to-token-text").innerHTML = trade.to.symbol;
     document.getElementById("select-token-text").innerHTML = "";
   }
 }
@@ -128,24 +128,19 @@ function renderInterface() {
 // Get estimated quotation and Gas fee
 async function getQuotation() {
   // Validate fields are not empty
-  if (
-    !currentTrade.from ||
-    !currentTrade.to ||
-    !document.getElementById("from-amount").value
-  )
+  if (!trade.from || !trade.to || !document.getElementById("from-amount").value)
     return;
 
   // Get from amount
   let amount = Number(
-    document.getElementById("from-amount").value *
-      10 ** currentTrade.from.decimals
+    document.getElementById("from-amount").value * 10 ** trade.from.decimals
   );
 
   // Get estimated quotation and Gas fee
   const quote = await Moralis.Plugins.oneInch.quote({
     chain: "eth", // The blockchain you want to use (eth/bsc/polygon)
-    fromTokenAddress: currentTrade.from.address, // The token you want to swap
-    toTokenAddress: currentTrade.to.address, // The token you want to receive
+    fromTokenAddress: trade.from.address, // The token you want to swap
+    toTokenAddress: trade.to.address, // The token you want to receive
     amount: amount,
   });
 
@@ -159,17 +154,19 @@ async function getQuotation() {
 
 // Validate if User can Swap
 async function validateSwap() {
+  // Enable Moralis web3 instance to enable swap functionality
+  await Moralis.enableWeb3();
+
   let address = Moralis.User.current().get("ethAddress");
   let amount = Number(
-    document.getElementById("from-amount").value *
-      10 ** currentTrade.from.decimals
+    document.getElementById("from-amount").value * 10 ** trade.from.decimals
   );
 
   // Validate if User can Swap
-  if (currentTrade.from.symbol !== "ETH") {
+  if (trade.from.symbol !== "ETH") {
     const allowance = await Moralis.Plugins.oneInch.hasAllowance({
       chain: "eth", // The blockchain you want to use (eth/bsc/polygon)
-      fromTokenAddress: currentTrade.from.address, // The token you want to swap
+      fromTokenAddress: trade.from.address, // The token you want to swap
       fromAddress: address, // Your wallet address
       amount: amount,
     });
@@ -179,7 +176,7 @@ async function validateSwap() {
     if (!allowance) {
       await Moralis.Plugins.oneInch.approve({
         chain: "eth", // The blockchain you want to use (eth/bsc/polygon)
-        tokenAddress: currentTrade.from.address, // The token you want to swap
+        tokenAddress: trade.from.address, // The token you want to swap
         fromAddress: address, // Your wallet address
       });
     }
@@ -187,8 +184,7 @@ async function validateSwap() {
 
   try {
     // Do the swap
-    let receipt = await Swap(address, amount);
-    alert("Swap Complete");
+    await Swap(address, amount);
   } catch (error) {
     console.log(error);
   }
@@ -196,14 +192,11 @@ async function validateSwap() {
 
 // Swap functionality
 async function Swap(userAddress, amount) {
-  // Enable Moralis web3 instance to enable swap functionality
-  await Moralis.enableWeb3();
-
   // Swap token
   return Moralis.Plugins.oneInch.swap({
     chain: "eth", // The blockchain you want to use (eth/bsc/polygon)
-    fromTokenAddress: currentTrade.from.address, // The token you want to swap
-    toTokenAddress: currentTrade.to.address, // The token you want to receive
+    fromTokenAddress: trade.from.address, // The token you want to swap
+    toTokenAddress: trade.to.address, // The token you want to receive
     amount: amount,
     fromAddress: userAddress, // Your wallet address
     slippage: 1,
@@ -219,10 +212,10 @@ document.getElementById("main-connect-wallet-button").onclick = login;
 
 // Select side
 document.getElementById("from-token-selected").onclick = () => {
-  currentSelectSide = "from";
+  selection = "from";
 };
 document.getElementById("to-token-selected").onclick = () => {
-  currentSelectSide = "to";
+  selection = "to";
 };
 
 // Swap button
